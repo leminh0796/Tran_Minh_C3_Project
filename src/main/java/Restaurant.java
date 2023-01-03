@@ -62,4 +62,7 @@ public class Restaurant {
         return name;
     }
 
+    public int orderCost(List<String> itemNames) throws itemNotFoundException {
+        return -1;
+    }
 }

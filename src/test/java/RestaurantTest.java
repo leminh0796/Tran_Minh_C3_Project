@@ -5,6 +5,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,6 +72,29 @@ class RestaurantTest {
     public void removing_item_that_does_not_exist_should_throw_exception() {
         assertThrows(itemNotFoundException.class,
                 ()->restaurant.removeFromMenu("French fries"));
+    }
+
+    @Test
+    public void order_cost_of_selected_items_should_return_sum_of_the_items_price() throws itemNotFoundException {
+        List<String> itemNames = new ArrayList<>();
+        itemNames.add("Sweet corn soup");
+        itemNames.add("Vegetable lasagne");
+        assertEquals(119 + 269, restaurant.orderCost(itemNames));
+    }
+
+    @Test
+    public void order_cost_of_none_item_selected_should_return_0() throws itemNotFoundException {
+        List<String> itemNames = new ArrayList<>();
+        assertEquals(0, restaurant.orderCost(itemNames));
+    }
+
+    @Test
+    public void order_cost_of_selected_items_with_an_item_that_does_not_exist_should_throw_exception() {
+        List<String> itemNames = new ArrayList<>();
+        itemNames.add("Sweet corn soup");
+        itemNames.add("Pizza Pepperoni");
+        assertThrows(itemNotFoundException.class,
+                ()->restaurant.orderCost(itemNames));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
